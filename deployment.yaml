@@ -20,8 +20,8 @@ spec:
         app: spring-boot-k8s
     spec:
       containers:
-        - name: go
-          image: acavalieri/k8s:public:<VERSION>
+        - name: spring-boot-k8s
+          image: acavalieri/k8s:public:latest
           ports:
             - containerPort: 8080
           livenessProbe:
