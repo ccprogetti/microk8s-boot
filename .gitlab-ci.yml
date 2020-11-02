@@ -8,7 +8,8 @@ docker-build:
   #before_script:
    # - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - docker build . -t 172.31.2.98:32000/mynginx:registry
+    - ping docker-dab.addvalue.it
+    - docker build . -t docker-dab.addvalue.it:32000/mynginx:registry
     - docker push 172.31.2.98:32000/mynginx
     #- docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
     #- docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
