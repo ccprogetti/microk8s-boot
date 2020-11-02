@@ -5,12 +5,11 @@ docker-build-master:
   stage: build
   services:
     - docker:dind
-  before_script:
-    - echo $CI_REGISTRY_USER  $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
+  ##before_script:    
+    ##- docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  ##script: 
+    ##- docker build --pull -t "$CI_REGISTRY_IMAGE" .
+    ##- docker push "$CI_REGISTRY_IMAGE"
   only:
     - master
 
@@ -20,10 +19,12 @@ docker-build:
   stage: build
   services:
     - docker:dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  ##before_script:
+    ##- docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker build . -t docker-dab.addvalue.it:32000/mynginx:registry
+    - docker push docker-dab.addvalue.it:32000/mynginx
+    ##- docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    ##- docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   except:
     - master
