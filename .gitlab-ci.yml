@@ -9,8 +9,7 @@ docker-build:
     ##- docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker login -u acavalieri -p 3Q37cTUc6XZj3e7 $CI_REGISTRY
   script:
-    - cat /etc/docker/daemon.json
     - docker build . -t docker-dab.addvalue.it:32000/mynginx:registry
-    - docker push docker-dab.addvalue.it:32000/mynginx
+    #- docker push docker-dab.addvalue.it:32000/mynginx
     #- docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
     #- docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
