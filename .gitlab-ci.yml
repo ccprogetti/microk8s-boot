@@ -14,7 +14,7 @@ docker-build:
     - docker login -u acavalieri -p 3Q37cTUc6XZj3e7 $CI_REGISTRY
     ##- docker login docker-dab.addvalue.it:32000
   script:
-    - docker build . -t microk8s-boot
-    - docker push microk8s-boot
+    - docker build . -t acavalieri/k8s
+    - docker push acavalieri/k8s
     #- docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
     #- docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
