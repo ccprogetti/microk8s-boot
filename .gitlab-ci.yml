@@ -2,6 +2,27 @@
 variables:
   DOCKER_HOST: tcp://localhost:2375
   DOCKER_TLS_CERTDIR: ""
+  SERVER: https://docker-dab.addvalue.it:16443
+  CERTIFICATE_AUTHORITY_DATA: "-----BEGIN CERTIFICATE-----
+MIIDATCCAemgAwIBAgIJAJElN+Ck6/95MA0GCSqGSIb3DQEBCwUAMBcxFTATBgNV
+BAMMDDEwLjE1Mi4xODMuMTAeFw0yMDEwMjgyMzI3MjdaFw0zMDEwMjYyMzI3Mjda
+MBcxFTATBgNVBAMMDDEwLjE1Mi4xODMuMTCCASIwDQYJKoZIhvcNAQEBBQADggEP
+ADCCAQoCggEBALho5KLKrBUl7kF03O2ImOWfSM9K7txOpleI8kc1j3J4il0UAOd8
+qRamZjUxDVjVfrN54WTyNDvBd2XQvn1HhsIbSVm19iZxLzaCyPeIZKYlwKy0ljjb
+BYJdRiVlQ3fcxQDu0Cb0THte05pK2W+DTnGj07V2oO2qcQSwUmuUsGzbB5A51ub9
+OcEE8TBTjtSVQq+H3jfEAk39818Gy8c2zqkjUDP7bsxfHqREFGGtzRbgzsMvCym8
+SWJLG2R4rJTKNf9HuqGFVG6+gDnxcvh6tkeOfQtOclqTFp3uoi0zeurSqI9+wCfv
+YLkSRGn1oy5ZjjDChFR5UjOUwUQFvRk0D28CAwEAAaNQME4wHQYDVR0OBBYEFAPa
+OYSub9V0lfipZ6qnadE3LKgCMB8GA1UdIwQYMBaAFAPaOYSub9V0lfipZ6qnadE3
+LKgCMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAIe0l6aNN4+qKPjz
+Eg4UXAKiFFFLB7Z/boPaXqZQ7p8uBj1TberbKch9xZJQe1N36QTRz2onJ84+S3pQ
+lHtHWvvrbfD5uQ++OnzIXnrj2nAT01zgP/xzxiRM5tIsKP812tcquFiV8YVvyKkA
+sPwhOPTJQydKtG+NSPxyVe2+aKdtx/enYs74jAVkaso2ZYPb5uFgxZCTV3SnyXUv
+oyFFdTJHRxhHffjQnfK/bkuwgaV6zFnZt/s8MhnkxVSiN+ioszcth2oNx68QsNbP
+RTlQWRQMkyJVwrVJcT2JXJCeN7UKP80DQg0vGzy3QBNNQUBQf7He16/442AZgfx+
+4R/A7JM=
+-----END CERTIFICATE-----"
+  USER_TOKEN:  "eyJhbGciOiJSUzI1NiIsImtpZCI6InlHTUlqUGFIbHV3YXZ1bUNpcWk1MEwtRXA2cUs5NHd6NzZfYlZFVEhELU0ifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJnaXRsYWItYWRtaW4tdG9rZW4tajh0ZGYiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZ2l0bGFiLWFkbWluIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiZGVhNmQ4OGUtYWM3NC00YzM4LTgxNTQtNWMwYjY2OTM0MTA4Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmdpdGxhYi1hZG1pbiJ9.CdzIsi1KwbuJmJ4YyIUA2MXq01d3RcyGM_MXAZxhwee8eVmKsCHubrs8g_P4qs7kdFLdDE5NknrtUuyGniVour-gJVaBbgACEQmbYEUSUcEuamKlYxU8lU-7hwF4Lwicb6_EkzrKWcyHA7fSnVy89EYr-CNiXAEXPfhZmNmojzbtJfK3794MmkLSrJZlEDpcHjx9ymVvq7K6HvUPMJOZ58XkT2FMbArGHRwfq6HRmAAywAZUhVAVjj0AoosqUBFEIG9of2HzQDlf9KHpQtjAYualX0tixpfNpCQPbDDcIAHTadwSm5K0nnolH8C1xBSyFqXIp3CTkelTDX0EPgWZeA"
 
 docker-build:
   # Official docker image.
@@ -18,3 +39,15 @@ docker-build:
     - docker push acavalieri/k8s
     #- docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
     #- docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+
+deploy:
+  stage: deploy
+  image: dtzar/helm-kubectl
+  script:
+    - kubectl config set-cluster k8s --server="${SERVER}"
+    - kubectl config set clusters.k8s.certificate-authority-data ${CERTIFICATE_AUTHORITY_DATA}
+    - kubectl config set-credentials gitlab --token="${USER_TOKEN}"
+    - kubectl config set-context default --cluster=k8s --user=gitlab
+    - kubectl config use-context default
+    - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" deployment.yaml
+    - kubectl apply -f deployment.yaml
