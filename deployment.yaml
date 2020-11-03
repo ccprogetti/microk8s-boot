@@ -28,11 +28,25 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 2
+            initialDelaySeconds: 10
             periodSeconds: 2
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
-            initialDelaySeconds: 2
+            initialDelaySeconds: 10
             periodSeconds: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-k8s-service
+spec:
+  selector:
+    app: spring-boot-k8s
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP
+  external-ip:
+    - 172.31.2.98
