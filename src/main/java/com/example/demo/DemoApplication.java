@@ -19,8 +19,9 @@ public class DemoApplication {
 
   @GetMapping("/")
   public String home() {
-    String event = UUID.fromString("Spring is here!").toString();
+  	String dummy = "Spring is here!";
+    String event = UUID.fromString(dummy).toString();
     log.info(event);
-    return event;
+    return dummy;
   }
 }
