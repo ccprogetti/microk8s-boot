@@ -20,7 +20,7 @@ public class DemoApplication {
   @GetMapping("/")
   public String home() {
   	String dummy = "Spring is here!";
-    String event = UUID.fromString(dummy).toString();
+    String event = UUID.randomUUID().toString();
     log.info(event);
     return dummy;
   }
