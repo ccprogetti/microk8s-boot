@@ -26,6 +26,8 @@ RUN yum update -y && \
 
 COPY ./s2i/bin/ /usr/libexec/s2i
 
+RUN chmod 755 /usr/libexec/s2i/*
+
 RUN /usr/libexec/s2i/assemble
 
 USER 1001
