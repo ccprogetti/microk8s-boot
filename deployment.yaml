@@ -24,7 +24,7 @@ spec:
           image: acavalieri/k8s:latest
           resources:
             requests:
-              memory: "200i"
+              memory: "200Mi"
               cpu: "250m"
             limits:
               memory: "256Mi"
