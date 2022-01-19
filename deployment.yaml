@@ -24,10 +24,10 @@ spec:
           image: acavalieri/k8s:latest
           resources:
             requests:
-              memory: "64Mi"
+              memory: "200i"
               cpu: "250m"
             limits:
-              memory: "128Mi"
+              memory: "256Mi"
               cpu: "500m"
           ports:
             - containerPort: 8080
