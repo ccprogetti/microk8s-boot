@@ -24,8 +24,8 @@ RUN yum update -y && \
     chown -R 1001:0 /opt /.m2 && \
     chmod -R g=u /opt /.m2
 
-COPY ./s2i/bin/ /usr/libexec/s2i
+##COPY ./s2i/bin/ /usr/libexec/s2i
 
 USER 1001
 EXPOSE 8080
-CMD ["/usr/libexec/s2i/usage"]
+CMD ["exec java -jar /opt/java-app/target/*.jar"]
