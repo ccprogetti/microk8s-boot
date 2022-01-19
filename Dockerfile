@@ -26,6 +26,8 @@ RUN yum update -y && \
 
 ##COPY ./s2i/bin/ /usr/libexec/s2i
 
+RUN mvn package
+
 USER 1001
 EXPOSE 8080
 CMD ["exec java -jar /opt/java-app/target/*.jar"]
