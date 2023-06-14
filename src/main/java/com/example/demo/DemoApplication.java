@@ -13,6 +13,8 @@ import java.util.UUID;
 @Slf4j
 public class DemoApplication {
 
+  private String password = "password";
+
   public static void main(String[] args) {
     SpringApplication.run(DemoApplication.class, args);
   }
