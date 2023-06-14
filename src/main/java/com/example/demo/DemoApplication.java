@@ -14,6 +14,8 @@ import java.util.UUID;
 public class DemoApplication {
 
   private String password = "password";
+  private String password1 = "password";
+  
 
   public static void main(String[] args) {
     SpringApplication.run(DemoApplication.class, args);
