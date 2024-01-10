@@ -25,7 +25,7 @@ public class DemoApplication {
 
   @GetMapping("/")
   public String home() {
-    String tmp = environment.getProperty("MICROK_8_S_BOOT_GIT_PORT_8080_TCP")
+    String tmp = environment.getProperty("MICROK_8_S_BOOT_GIT_PORT_8080_TCP");
   	String dummy = "Spring is here again!" + tmp;
     String event = UUID.randomUUID().toString();
     log.info(event);
