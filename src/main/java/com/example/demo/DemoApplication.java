@@ -29,7 +29,6 @@ public class DemoApplication {
   	String dummy = "Spring is here again!" + tmp;
     String event = UUID.randomUUID().toString();
     log.info(event);
-    log.info ("hostname:" + tmp);
     return dummy;
   }
 }
